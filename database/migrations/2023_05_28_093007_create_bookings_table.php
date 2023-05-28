@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateBookingsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('bookings', function (Blueprint $table) {
+            $table->id();
+
+            $table->integer('show_id')->unsigned()->nullable();
+            $table->foreign('show_id')->references('id')->on('shows');
+
+            $table->integer('showseat_id')->unsigned()->nullable();
+            $table->foreign('showseat_id')->references('id')->on('showseats');
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('bookings');
+    }
+}
